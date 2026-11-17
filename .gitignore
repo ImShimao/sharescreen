@@ -1,0 +1,22 @@
+# Dépendances et sorties de build
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+
+# Outils téléchargés automatiquement (scripts/fetch-binaries.mjs)
+resources/bin/
+
+# Clés de signature des mises à jour : ne JAMAIS les publier
+*.key
+*.key.pub
+.tauri/
+
+# Images développeur iOS (téléchargées par go-ios) et dossiers locaux
+devimages/
+.claude/
+
+# Divers
+*.log
+.DS_Store
+Thumbs.db

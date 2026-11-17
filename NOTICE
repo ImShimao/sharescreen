@@ -1,0 +1,11 @@
+ShareScreen utilise des outils tiers, téléchargés par scripts/fetch-binaries.mjs
+(pas de copie dans le dépôt). Leurs licences restent celles de leurs auteurs :
+
+- adb (platform-tools, Google) : Apache License 2.0
+  https://developer.android.com/tools/releases/platform-tools
+- scrcpy-server 5.0.1 (Genymobile) : Apache License 2.0
+  https://github.com/Genymobile/scrcpy
+- go-ios 1.3.2 (Daniel Paulus) : MIT License
+  https://github.com/danielpaulus/go-ios
+- wintun 0.14.1 (WireGuard LLC) : Prebuilt Binaries License, voir https://www.wintun.net
+- WebDriverAgent (non fourni) : BSD, à installer séparément sur iPhone si le contrôle est voulu
