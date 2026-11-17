@@ -13,9 +13,9 @@ Son, souris et clavier (Android), par câble USB. Une seule fenêtre, un seul ap
   <img alt="React 19" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black">
   <img alt="Rust" src="https://img.shields.io/badge/Rust-stable-DEA584?logo=rust&logoColor=black">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white">
-  <img alt="Version" src="https://img.shields.io/github/v/release/OWNER/sharescreen?label=version&color=7fc3ff">
-  <img alt="Téléchargements" src="https://img.shields.io/github/downloads/OWNER/sharescreen/total?label=t%C3%A9l%C3%A9chargements&color=6ee7a8">
-  <img alt="Licence" src="https://img.shields.io/badge/licence-%C3%A0%20d%C3%A9finir-lightgrey">
+  <img alt="Version" src="https://img.shields.io/github/v/release/ImShimao/sharescreen?label=version&color=7fc3ff">
+  <img alt="Téléchargements" src="https://img.shields.io/github/downloads/ImShimao/sharescreen/total?label=t%C3%A9l%C3%A9chargements&color=6ee7a8">
+  <img alt="Licence" src="https://img.shields.io/badge/licence-Apache--2.0-blue">
 </p>
 
 <p>
@@ -68,7 +68,7 @@ Son, souris et clavier (Android), par câble USB. Une seule fenêtre, un seul ap
 
 ## 📦 Installation
 
-1. Téléchargez **`ShareScreen_x.y.z_x64-setup.exe`** depuis la page [**Releases**](https://github.com/OWNER/sharescreen/releases).
+1. Téléchargez **`ShareScreen_x.y.z_x64-setup.exe`** depuis la page [**Releases**](https://github.com/ImShimao/sharescreen/releases).
 2. Lancez-le et suivez l'installation. Il n'exige aucun droit administrateur.
 3. Windows peut afficher un avertissement (éditeur inconnu) : cliquez sur **Informations complémentaires**, puis **Exécuter quand même**.
 
@@ -148,8 +148,9 @@ npm run build        # installeur dans src-tauri/target/release/bundle/nsis
 
 1. Mettez à jour le numéro de version dans `package.json` et `src-tauri/tauri.conf.json`.
 2. Définissez la clé de signature (voir ci-dessous), puis lancez `npm run release`. Cela compile l'installeur signé et génère `latest.json`.
-3. Dans `src-tauri/tauri.conf.json`, remplacez `OWNER/sharescreen` (`plugins.updater.endpoints`) par votre dépôt.
-4. Créez une release GitHub `vX.Y.Z` et joignez l'installeur `.exe` et `latest.json`.
+3. Créez une release GitHub `vX.Y.Z` et joignez l'installeur `.exe` et `latest.json`.
+
+Le dépôt de mise à jour est fixé dans `src-tauri/tauri.conf.json` (`plugins.updater.endpoints`). Si vous forkez le projet, remplacez `ImShimao/sharescreen` par le vôtre.
 
 <details>
 <summary><b>🔑 Clé de signature des mises à jour</b></summary>
@@ -162,7 +163,7 @@ $env:TAURI_SIGNING_PRIVATE_KEY_PASSWORD = ""
 npm run release
 ```
 
-Si vous forkez le projet, générez votre propre clé (`npx tauri signer generate`) et remplacez `plugins.updater.pubkey` par la clé publique générée.
+Si vous forkez le projet, générez votre propre clé (`npx tauri signer generate`) et remplacez `plugins.updater.pubkey` par la clé publique générée. Sans cela, les mises à jour de votre fork ne seront pas acceptées par les installations existantes.
 
 </details>
 
@@ -179,4 +180,4 @@ Si vous forkez le projet, générez votre propre clé (`npx tauri signer generat
 
 ## 📄 Licence
 
-Licence du projet : à définir. Les outils tiers gardent leurs propres licences : voir [NOTICE](NOTICE).
+Licence du projet : [Apache-2.0](LICENSE). Les outils tiers gardent leurs propres licences : voir [NOTICE](NOTICE).
