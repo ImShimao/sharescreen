@@ -701,6 +701,13 @@ button:disabled {
   color: var(--warn);
 }
 
+.app-version {
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+  margin-left: 14px;
+  white-space: nowrap;
+}
+
 .rec {
   color: var(--danger);
   font-variant-numeric: tabular-nums;

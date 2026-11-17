@@ -527,6 +527,15 @@ export function App() {
     }
   };
 
+  const installCerts = async () => {
+    try {
+      await window.sharescreen.appleCertsInstall();
+      notify('Certificats Apple installés. Cliquez sur Réessayer.', 'ok');
+    } catch (err) {
+      notify(messageOf(err), 'error');
+    }
+  };
+
   const revealIos = async () => {
     if (!selected) return;
     try {
@@ -617,6 +626,7 @@ export function App() {
               onReveal={() => void revealIos()}
               onTunnel={() => void tunnel()}
               onRetry={() => (selected ? void connect(selected) : undefined)}
+              onInstallCerts={() => void installCerts()}
             />
           )}
           {dragOver && (
@@ -653,6 +663,7 @@ export function App() {
           <span className={`audio-state is-${audioStatus}`}>{AUDIO_LABEL[audioStatus]}</span>
         )}
         {recording && <span className="rec" aria-label="Enregistrement en cours">● REC {formatTime(recordSeconds)}</span>}
+        <span className="app-version">v{__APP_VERSION__}</span>
       </footer>
 
       <textarea

@@ -158,6 +158,7 @@ export function EmptyState({
   onReveal,
   onTunnel,
   onRetry,
+  onInstallCerts,
 }: {
   selected: DeviceInfo | null;
   phase: 'idle' | 'connecting' | 'error';
@@ -167,6 +168,7 @@ export function EmptyState({
   onReveal: () => void;
   onTunnel: () => void;
   onRetry: () => void;
+  onInstallCerts: () => void;
 }) {
   if (phase === 'connecting') {
     return (
@@ -207,6 +209,11 @@ export function EmptyState({
         <h2>{selected.name}</h2>
         {phase === 'error' && <p className="notice error">{note}</p>}
         <IosChecklist status={iosStatus} onPair={onPair} onReveal={onReveal} onTunnel={onTunnel} />
+        {phase === 'error' && note.includes('certificat') && (
+          <button className="btn primary" onClick={onInstallCerts}>
+            Installer les certificats Apple
+          </button>
+        )}
         <button className="btn" onClick={onRetry}>Réessayer</button>
       </div>
     );

@@ -25,6 +25,7 @@ export interface ShareScreenApi {
   iosTap(nx: number, ny: number): Promise<void>;
   iosSwipe(fx: number, fy: number, tx: number, ty: number): Promise<void>;
   iosHome(): Promise<void>;
+  appleCertsInstall(): Promise<void>;
   saveFile(suggestedName: string, bytes: Uint8Array, extension: string): Promise<string | null>;
 }
 

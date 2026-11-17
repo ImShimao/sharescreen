@@ -30,6 +30,8 @@ fn main() {
             commands::files_push,
             commands::files_pull,
             commands::save_bytes,
+            commands::apple_certs_status,
+            commands::apple_certs_install,
             commands::ios_status,
             commands::ios_start,
             commands::ios_stop,

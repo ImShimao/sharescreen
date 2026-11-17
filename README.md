@@ -41,7 +41,9 @@ ShareScreen affiche l'écran de votre appareil dans une fenêtre Windows 11 : vi
 2. Lancez l'installeur. Il ne demande aucun droit administrateur.
 3. Windows peut afficher « éditeur inconnu » : cliquez sur **Informations complémentaires**, puis **Exécuter quand même**.
 
-Adb, go-ios, le serveur scrcpy et le pilote wintun sont inclus. Aucun autre logiciel n'est à installer.
+Adb, go-ios, le serveur scrcpy, le pilote wintun et les certificats Apple sont inclus. Aucun autre logiciel n'est à installer, et aucun droit administrateur n'est requis pour l'installation.
+
+Pour l'iPhone, la première fois, ShareScreen vous propose d'installer les certificats Apple : un clic suffit (voir [Dépannage](#-dépannage)).
 
 Les mises à jour sont proposées au lancement (**Mettre à jour** ou **Plus tard**), sans réinstaller.
 
@@ -110,7 +112,7 @@ Les mises à jour sont proposées au lancement (**Mettre à jour** ou **Plus tar
 | La tablette apparaît « Autorisation » | Acceptez le débogage USB sur l'écran de l'appareil, puis actualisez la liste. |
 | L'image s'affiche mais le clavier et la souris ne répondent pas (Xiaomi) | Activez « Débogage USB (paramètres de sécurité) ». |
 | Pas de son | Vérifiez Android 11 minimum. Certaines applications protégées ne laissent pas capturer leur audio. |
-| iPhone : « Certificat signé par une autorité inconnue » | Certains PC n'ont pas les certificats d'Apple. Suivez [docs/certificats-apple.md](docs/certificats-apple.md), une seule fois. |
+| iPhone : « Windows ne fait pas confiance au certificat d'Apple » | Cliquez sur **Installer les certificats Apple** (une seule fois, sans droits administrateur), puis sur **Réessayer**. Windows peut demander une confirmation : acceptez-la. Pour les retirer : `certmgr.msc`. Procédure manuelle : [docs/certificats-apple.md](docs/certificats-apple.md). |
 | iPhone : tunnel inactif | Cliquez sur **Activer le tunnel** et acceptez la fenêtre Windows. |
 | iPhone en lecture seule | Normal sans WebDriverAgent : le contrôle demande une installation compilée avec Xcode. |
 

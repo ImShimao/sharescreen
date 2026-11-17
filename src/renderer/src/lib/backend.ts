@@ -165,6 +165,7 @@ export function createBackend(): ShareScreenApi {
     iosTap: (nx: number, ny: number) => invoke('ios_tap', { nx, ny }),
     iosSwipe: (fx: number, fy: number, tx: number, ty: number) => invoke('ios_swipe', { fx, fy, tx, ty }),
     iosHome: () => invoke('ios_home'),
+    appleCertsInstall: () => invoke('apple_certs_install'),
 
     saveFile: async (suggestedName: string, bytes: Uint8Array, extension: string) => {
       const path = await save({

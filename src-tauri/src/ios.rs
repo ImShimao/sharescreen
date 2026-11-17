@@ -460,6 +460,44 @@ impl Wda {
     }
 }
 
+/// Les deux certificats Apple sont-ils déjà dans le magasin de l'utilisateur ? (lecture seule)
+pub async fn apple_certs_installed() -> bool {
+    let script = "(Get-ChildItem Cert:\\CurrentUser\\Root | Where-Object { $_.Subject -like '*CN=Apple Root CA,*' }).Count -gt 0 -and (Get-ChildItem Cert:\\CurrentUser\\CA | Where-Object { $_.Subject -like '*CN=Apple Server Authentication CA*' }).Count -gt 0";
+    let mut cmd = Command::new("powershell.exe");
+    cmd.args(["-NoProfile", "-NonInteractive", "-Command", script]).stdin(Stdio::null());
+    #[cfg(windows)]
+    cmd.as_std_mut().creation_flags(CREATE_NO_WINDOW);
+    cmd.output()
+        .await
+        .map(|out| String::from_utf8_lossy(&out.stdout).trim() == "True")
+        .unwrap_or(false)
+}
+
+/// Installe les certificats Apple livrés avec l'application, dans le magasin de l'utilisateur
+/// (sans droits administrateur). Appelé uniquement sur demande explicite de l'utilisateur.
+pub async fn install_apple_certs() -> Result<(), String> {
+    let system = std::env::var("SystemRoot").unwrap_or_else(|_| "C:\\Windows".into());
+    let certutil = format!("{system}\\System32\\certutil.exe");
+    for (store, file) in [("Root", "AppleRootCA.cer"), ("CA", "AppleServerAuthenticationCA.cer")] {
+        let path = paths::cert(file);
+        if !path.exists() {
+            return Err(format!("{file} est absent de l'application : réinstallez ShareScreen."));
+        }
+        let mut cmd = Command::new(&certutil);
+        cmd.args(["-user", "-addstore", "-f", store]).arg(&path).stdin(Stdio::null());
+        #[cfg(windows)]
+        cmd.as_std_mut().creation_flags(CREATE_NO_WINDOW);
+        let out = cmd.output().await.map_err(|e| format!("certutil indisponible : {e}"))?;
+        if !out.status.success() {
+            return Err(format!(
+                "Installation refusée pour {file} : {}",
+                String::from_utf8_lossy(&out.stdout).trim()
+            ));
+        }
+    }
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

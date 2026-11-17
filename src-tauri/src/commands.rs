@@ -221,6 +221,16 @@ pub async fn save_bytes(request: Request<'_>) -> Result<(), String> {
 }
 
 #[tauri::command]
+pub async fn apple_certs_status() -> bool {
+    ios::apple_certs_installed().await
+}
+
+#[tauri::command]
+pub async fn apple_certs_install() -> Result<(), String> {
+    ios::install_apple_certs().await
+}
+
+#[tauri::command]
 pub async fn ios_status(udid: Option<String>) -> IosStatus {
     ios::status(udid).await
 }

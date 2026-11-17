@@ -1,6 +1,6 @@
 [package]
 name = "sharescreen"
-version = "0.2.1"
+version = "0.2.2"
 description = "Affiche et contrôle une tablette Android et un iPhone depuis Windows 11, par USB."
 edition = "2021"
 publish = false
