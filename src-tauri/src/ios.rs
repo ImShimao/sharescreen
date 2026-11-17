@@ -2,7 +2,6 @@
 //! Le contrôle passe par WebDriverAgent (port 8100), à installer une fois sur l'appareil.
 
 use std::collections::VecDeque;
-use std::net::TcpListener;
 use std::process::Stdio;
 use std::sync::Arc;
 use std::sync::Mutex as StdMutex;
@@ -261,10 +260,8 @@ pub async fn start_tunnel_elevated() -> Result<(), String> {
     }
 }
 
-fn free_port() -> Result<u16, String> {
-    let listener = TcpListener::bind("127.0.0.1:0").map_err(|e| format!("Port local indisponible : {e}"))?;
-    Ok(listener.local_addr().map_err(|e| e.to_string())?.port())
-}
+/// Port du serveur MJPEG de go-ios (valeur par défaut de `ios screenshot --stream`).
+const STREAM_PORT: u16 = 3333;
 
 /// Affichage de l'iPhone : `ios screenshot --stream` (MJPEG local), relayé à l'interface.
 pub struct IosStream {
@@ -277,9 +274,10 @@ impl IosStream {
         if !exe().exists() {
             return Err("ios.exe est absent du dossier bin.".into());
         }
-        let port = free_port()?;
+        // go-ios ignore --port et utilise son port par défaut : on s'y connecte directement.
+        let port = STREAM_PORT;
         let mut cmd = Command::new(exe());
-        cmd.args(["--udid", &udid, "screenshot", "--stream", &format!("--port={port}")]);
+        cmd.args(["--udid", &udid, "screenshot", "--stream"]);
         cmd.stdin(Stdio::null()).stdout(Stdio::null()).stderr(Stdio::piped()).kill_on_drop(true);
         #[cfg(windows)]
         cmd.as_std_mut().creation_flags(CREATE_NO_WINDOW);

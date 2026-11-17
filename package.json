@@ -1,7 +1,7 @@
 {
   "name": "sharescreen",
   "productName": "ShareScreen",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Affiche et contrôle une tablette Android et un iPhone depuis Windows 11, par USB.",
   "private": true,
   "type": "module",
