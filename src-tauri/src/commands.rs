@@ -136,7 +136,11 @@ pub async fn devices_list(state: State<'_, AppState>) -> Result<DevicesResult, S
         }
         Err(e) => errors.push(format!("Android : {e}")),
     }
-    devices_out.extend(ios::list_devices().await);
+    if ios::usbmux_running().await {
+        devices_out.extend(ios::list_devices().await);
+    } else {
+        errors.push(ios::USBMUX_MISSING.into());
+    }
     Ok(DevicesResult { devices: devices_out, errors })
 }
 

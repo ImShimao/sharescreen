@@ -85,6 +85,18 @@ pub async fn info(udid: &str) -> Result<IosInfo, String> {
     })
 }
 
+/// Service « Apple Mobile Device » (usbmuxd, port 27015), fourni par Apple Devices ou iTunes.
+/// Sans lui, Windows ne voit aucun iPhone.
+pub async fn usbmux_running() -> bool {
+    timeout(Duration::from_millis(400), tokio::net::TcpStream::connect("127.0.0.1:27015"))
+        .await
+        .map(|r| r.is_ok())
+        .unwrap_or(false)
+}
+
+pub const USBMUX_MISSING: &str =
+    "iPhone : installez « Apple Devices » depuis le Microsoft Store (ou iTunes) pour que Windows détecte l'iPhone.";
+
 pub async fn list_devices() -> Vec<DeviceInfo> {
     let udids = list_udids().await.unwrap_or_default();
     let mut devices = Vec::new();

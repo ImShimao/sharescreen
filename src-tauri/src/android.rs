@@ -281,7 +281,10 @@ fn watch_output(server: &mut Child, recent: Recent) {
 }
 
 async fn connect_once(port: u16) -> Option<TcpStream> {
-    TcpStream::connect(("127.0.0.1", port)).await.ok()
+    let stream = TcpStream::connect(("127.0.0.1", port)).await.ok()?;
+    // Pas d'algorithme de Nagle : chaque image et chaque clic partent tout de suite.
+    let _ = stream.set_nodelay(true);
+    Some(stream)
 }
 
 /// Connexion vidéo : le serveur envoie son octet factice une fois la connexion acceptée.

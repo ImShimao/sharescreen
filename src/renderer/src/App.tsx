@@ -216,13 +216,19 @@ export function App() {
   }, []);
 
   // Liste des appareils, rafraîchie toutes les 5 secondes.
+  // Une seule recherche à la fois : un appareil lent ne doit pas empiler les appels.
+  const refreshing = useRef(false);
   const refresh = useCallback(async () => {
+    if (refreshing.current) return;
+    refreshing.current = true;
     try {
       const result = await window.sharescreen.listDevices();
       setDevices(result.devices);
       setDeviceErrors(result.errors);
     } catch (err) {
       setDeviceErrors([messageOf(err)]);
+    } finally {
+      refreshing.current = false;
     }
   }, []);
 

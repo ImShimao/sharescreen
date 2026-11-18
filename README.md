@@ -109,6 +109,8 @@ Les mises à jour sont proposées au lancement (**Mettre à jour** ou **Plus tar
 
 | Symptôme | Solution |
 | --- | --- |
+| La tablette n'apparaît pas du tout | Essayez un autre câble (certains ne font que la charge). Si besoin, installez le pilote USB du fabricant ou le [pilote USB Google](https://developer.android.com/studio/run/win-usb). |
+| L'iPhone n'apparaît pas du tout | Installez **Apple Devices** depuis le Microsoft Store (ou iTunes) : ShareScreen l'indique lui-même s'il manque. |
 | La tablette apparaît « Autorisation » | Acceptez le débogage USB sur l'écran de l'appareil, puis actualisez la liste. |
 | L'image s'affiche mais le clavier et la souris ne répondent pas (Xiaomi) | Activez « Débogage USB (paramètres de sécurité) ». |
 | Pas de son | Vérifiez Android 11 minimum. Certaines applications protégées ne laissent pas capturer leur audio. |

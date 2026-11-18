@@ -100,7 +100,7 @@ export class AudioPlayer {
     source.connect(this.gain);
     const now = ctx.currentTime;
     // Recale la file si elle a pris du retard ou s'est trop éloignée.
-    if (this.nextStart < now + 0.01 || this.nextStart > now + 0.5) this.nextStart = now + BUFFER_SECONDS;
+    if (this.nextStart < now + 0.01 || this.nextStart > now + 0.25) this.nextStart = now + BUFFER_SECONDS;
     source.start(this.nextStart);
     this.nextStart += buffer.duration;
   }
